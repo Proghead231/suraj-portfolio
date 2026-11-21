@@ -18,7 +18,7 @@ with col1:
         "📍 Kathmandu, Nepal &nbsp;|&nbsp; "
         "📧 [joshisur231@gmail.com](mailto:joshisur231@gmail.com) &nbsp;|&nbsp; "
         "💻 [GitHub](https://github.com/Proghead231) &nbsp;|&nbsp; "
-        "🔬 [ResearchGate](https://www.researchgate.net/profile/Suraj-Joshi-18)",
+        "🔬 [ResearchGate](https://www.researchgate.net/profile/Suraj-Joshi-6)",
         unsafe_allow_html=True,
     )
 
