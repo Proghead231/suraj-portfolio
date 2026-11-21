@@ -1,0 +1,30 @@
+# ── Credentials (NEVER commit these) ─────────────────────────────────────────
+*.json
+!requirements.txt
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ── Environments ──────────────────────────────────────────────────────────────
+.env
+.venv
+env/
+venv/
+
+# ── IDE / OS ──────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.DS_Store
+Thumbs.db
+
+# ── Scratch / temp ────────────────────────────────────────────────────────────
+scratch/
+*.ipynb_checkpoints/

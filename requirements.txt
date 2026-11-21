@@ -1,0 +1,7 @@
+streamlit>=1.30.0
+geemap>=0.39.0
+earthengine-api
+pandas
+folium
+streamlit-folium
+pyarrow>=16.0

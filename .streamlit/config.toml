@@ -1,0 +1,13 @@
+[theme]
+primaryColor = "#10b981"  # Emerald green, suitable for a geospatial/environmental analyst
+backgroundColor = "#0f172a" # Slate dark background for a premium feel
+secondaryBackgroundColor = "#1e293b" # Slightly lighter slate for sidebar/widgets
+textColor = "#f8fafc"
+font = "sans serif"
+
+[client]
+showSidebarNavigation = true
+
+[server]
+enableCORS = false
+enableXsrfProtection = false
