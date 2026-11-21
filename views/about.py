@@ -187,7 +187,7 @@ st.divider()
 st.header("🎓 Certification")
 st.markdown("""
 <div class="cv-card">
-    <div class="cv-title">Machine Learning with Python- Zero to GBMs (2023) <a href="https://doi.org/10.3389/fcosc.2025.1645493" target="_blank">Certificate</a></div>
+    <div class="cv-title">Machine Learning with Python- Zero to GBMs (2023) <a href="https://jovian.com/certificate/MFQTQMJUGU" target="_blank">Certificate</a></div>
 </div>
 <div class="cv-card">
     <div class="cv-title">Learning Pix4D Drone Mapping- LinkedIn Learning (2022) <a href="https://www.linkedin.com/learning/certificates/a00b8b8afb63ba17b33b35af3b4ec1679847f6c54d0a89a76325ee1eaccc6d53?contentTrackingId=Bw8lIj%2F6Ss6PDi2xfbIH7w%3D%3D&viewName=premium-nav-upsell-text&upsellOrderOrigin=Tracking%3Av1%3Apremium_nav_upsell_text%3ANav%3AIn-Product" target="_blank">Certificate</a></div>
