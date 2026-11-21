@@ -82,7 +82,20 @@ def initialize_gee():
         return  # already initialized in this session, skip
 
     try:
-        # --- Method 1: env var points to a key file on disk ---
+        # --- Method 1: Streamlit Cloud secrets (st.secrets["GEE_SERVICE_ACCOUNT_JSON"]) ---
+        # Streamlit Cloud injects secrets into st.secrets, not always into os.environ.
+        try:
+            key_json_str = st.secrets.get("GEE_SERVICE_ACCOUNT_JSON", "")
+        except Exception:
+            key_json_str = ""
+        if key_json_str:
+            key_data = json.loads(key_json_str)
+            credentials = ee.ServiceAccountCredentials(key_data["client_email"], key_data=key_data)
+            ee.Initialize(credentials)
+            st.session_state.gee_initialized = True
+            return
+
+        # --- Method 2: env var points to a key file on disk ---
         key_path_env = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS", "")
         if key_path_env and os.path.isfile(key_path_env):
             with open(key_path_env, "r") as f:
@@ -92,7 +105,7 @@ def initialize_gee():
             st.session_state.gee_initialized = True
             return
 
-        # --- Method 2: full JSON stored in an env var / secret ---
+        # --- Method 3: full JSON in an OS env var ---
         key_json_str = os.environ.get("GEE_SERVICE_ACCOUNT_JSON", "")
         if key_json_str:
             key_data = json.loads(key_json_str)
@@ -101,7 +114,7 @@ def initialize_gee():
             st.session_state.gee_initialized = True
             return
 
-        # --- Method 3: local dev fallback — key file beside utils.py ---
+        # --- Method 4: local dev fallback — key file beside utils.py ---
         script_dir = os.path.dirname(os.path.abspath(__file__))
         local_key = os.path.join(script_dir, "ee-joshisur231-bd4e20465f61.json")
         if os.path.isfile(local_key):
@@ -115,7 +128,8 @@ def initialize_gee():
         st.error("⚠️ Google Earth Engine credentials not found.")
         st.info(
             "For local dev: place `ee-joshisur231-bd4e20465f61.json` in the project root.\n\n"
-            "For deployment: set the **`GEE_SERVICE_ACCOUNT_JSON`** secret to the full contents of the key file."
+            "For deployment: add **`GEE_SERVICE_ACCOUNT_JSON`** to your Streamlit Cloud secrets "
+            "(paste the full contents of the key JSON file)."
         )
 
     except Exception as e:

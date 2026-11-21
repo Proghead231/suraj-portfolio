@@ -23,7 +23,7 @@ with col1:
     )
 
 with col2:
-    st.image(r"images\profile_pic.jpg", width=200)
+    st.image("images/profile_pic.jpg", width=200)
 
 st.divider()
 
