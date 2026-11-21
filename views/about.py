@@ -81,7 +81,8 @@ st.subheader("Under Peer Review")
 st.markdown("""
 <div class="cv-card">
     <div class="cv-title">Climatic and non-climatic drivers of rangeland vegetation change in Nepal</div>
-    <div class="cv-subtitle">Uttam Babu Shrestha, <b>Suraj Joshi</b></div>
+    <div class="cv-subtitle">Uttam Babu Shrestha, <b>Suraj Joshi</b><br>
+    Preprint, 2026 · <a href="https://doi.org/10.64898/2026.07.09.737421" target="_blank">DOI</a></div>
 </div>
 <div class="cv-card">
     <div class="cv-title">Groundwater Recharge Potential Prediction using Machine Learning in Karnali Basin</div>
