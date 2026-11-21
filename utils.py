@@ -82,16 +82,24 @@ def initialize_gee():
         return  # already initialized in this session, skip
 
     try:
-        # --- Method 1: Streamlit Cloud secrets (st.secrets["GEE_SERVICE_ACCOUNT_JSON"]) ---
-        # Streamlit Cloud injects secrets into st.secrets, not always into os.environ.
         try:
-            key_json_str = st.secrets.get("GEE_SERVICE_ACCOUNT_JSON", "")
+            secret = st.secrets.get("GEE_SERVICE_ACCOUNT_JSON", None)
         except Exception:
-            key_json_str = ""
-        if key_json_str:
-            key_data = json.loads(key_json_str)
-            credentials = ee.ServiceAccountCredentials(key_data["client_email"], key_data=key_data)
+            secret = None
+
+        if secret:
+            if isinstance(secret, str):
+                key_data = json.loads(secret)
+            else:
+                key_data = dict(secret)
+
+            credentials = ee.ServiceAccountCredentials(
+                key_data["client_email"],
+                key_data=json.dumps(key_data)
+            )
+
             ee.Initialize(credentials)
+
             st.session_state.gee_initialized = True
             return
 
