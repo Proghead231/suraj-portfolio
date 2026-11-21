@@ -33,21 +33,20 @@ st.header("🛠️ Technical Skills")
 skills = {
     "Remote Sensing & GIS": [
         "Google Earth Engine", "QGIS", "ArcGIS", "LandTrendr", 
-        "OBIA", "SAR Analysis", "Time-Series Analysis",
+        "OBIA", "Time-Series Analysis",
     ],
     "Programming": [
         "Python", "JavaScript (GEE)",
     ],
     "Machine Learning": [
-        "Random Forest", "Habitat Suitability Modelling",
         "Scikit-learn",
     ],
     "Data & Visualization": [
-        "Pandas", "NumPy", "Matplotlib", "Folium", "Streamlit",
+        "Pandas", "NumPy", "Matplotlib", "Streamlit",
         "GeoPandas", "Rasterio",
     ],
     "Ecosystem Modelling": [
-        "InVEST Suite", "Biodiversity Assessment", "Landslide Susceptibility",
+        "InVEST Suite", "Landslide Susceptibility",
         "Groundwater Recharge Modelling",
     ],
 }
@@ -180,5 +179,17 @@ st.markdown("""
         <li><b>Identification of Suitable Sites for Non-timber Forest Products</b> (Shilanidevi Green Eyes Nepal, 2019): Identified suitable sites using geospatial suitability modelling.</li>
         <li><b>Integrated Urban Development Planning Project</b> (Shilanidevi Green Eyes Nepal, 2018-2019): Performed multi-hazard susceptibility modelling (landslide, flood, drought); delineated watersheds and stream networks using DEMs.</li>
     </ul>
+</div>
+""", unsafe_allow_html=True)
+
+st.divider()
+
+st.header("🎓 Certification")
+st.markdown("""
+<div class="cv-card">
+    <div class="cv-title">Machine Learning with Python- Zero to GBMs (2023) <a href="https://doi.org/10.3389/fcosc.2025.1645493" target="_blank">Certificate</a></div>
+</div>
+<div class="cv-card">
+    <div class="cv-title">Learning Pix4D Drone Mapping- LinkedIn Learning (2022) <a href="https://www.linkedin.com/learning/certificates/a00b8b8afb63ba17b33b35af3b4ec1679847f6c54d0a89a76325ee1eaccc6d53?contentTrackingId=Bw8lIj%2F6Ss6PDi2xfbIH7w%3D%3D&viewName=premium-nav-upsell-text&upsellOrderOrigin=Tracking%3Av1%3Apremium_nav_upsell_text%3ANav%3AIn-Product" target="_blank">Certificate</a></div>
 </div>
 """, unsafe_allow_html=True)
