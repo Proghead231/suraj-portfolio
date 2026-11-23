@@ -159,8 +159,9 @@ if run_btn:
     if roi is None:
         st.error("🗺️ Please **draw a polygon** on the map before running the analysis.")
     else:
-        with st.spinner("Running Trees Outside Forest analysis… this may take a minute."):
-            try:
+        try:
+            with st.status("Running Trees Outside Forest analysis...", expanded=True) as status:
+
                 result = tof(
                     roi=roi,
                     npixels_to_expand_other_classes=npixels_other,
@@ -168,6 +169,12 @@ if run_btn:
                     npixels_to_expand_forest=npixels_forest,
                     scale=int(scale),
                     niterations=int(niterations),
+                )
+
+                # Update status before preparing the map
+                status.update(
+                    label="Analysis complete. Adding layers to the map...",
+                    state="running"
                 )
 
                 new_map = geemap.Map(center=[27.6, 85.5], zoom=13)
@@ -181,26 +188,35 @@ if run_btn:
                     {"min": 1, "max": 1, "palette": ["#3b82f6"]},
                     "Trees Outside Forest",
                 )
+
                 new_map.addLayer(
                     forest_only,
                     {"min": 2, "max": 2, "palette": ["#22c55e"]},
                     "Forest",
                     shown=True,
                 )
+
                 new_map.centerObject(roi, zoom=14)
 
                 st.session_state.tof_map = new_map
-                st.success("✅ Analysis complete! Use the layer control to toggle layers.")
-                st.rerun()
 
-            except ee.EEException as e:
-                st.error(f"**Earth Engine error:** {e}")
-                st.info(
-                    "💡 This usually means the drawn area is too large. "
-                    "Try drawing a smaller region, or increase the Scale parameter."
+                status.update(
+                    label="Layers added! Loading the map...",
+                    state="complete",
+                    expanded=False
                 )
-            except Exception as e:
-                st.error(f"**Unexpected error:** {e}")
+
+            st.success("✅ Analysis complete!")
+            st.info("⏳ Please wait while the map layers load. This may take some time for larger areas. Once the layers are visible, use the layer control in the top-right corner of the map to toggle them on or off.")
+        except ee.EEException as e:
+            st.error(f"**Earth Engine error:** {e}")
+            st.info(
+                "💡 This usually means the drawn area is too large. "
+                "Try drawing a smaller region, or increase the Scale parameter."
+            )
+
+        except Exception as e:
+            st.error(f"**Unexpected error:** {e}")
 
 # ── Render map ────────────────────────────────────────────────────────────────
 
