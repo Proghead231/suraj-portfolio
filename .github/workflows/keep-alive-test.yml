@@ -1,0 +1,14 @@
+name: Test Wake Folium App
+
+on:
+  workflow_dispatch:         # Manual run only—won't run on a schedule
+
+jobs:
+  test-wake:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: gpenessot/streamlit-keep-alive@main
+        with:
+          app-urls: |
+            https://streamlit.app
+          timeout: '180'
