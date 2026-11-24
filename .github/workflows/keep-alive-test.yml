@@ -1,14 +1,52 @@
 name: Test Wake Folium App
 
 on:
-  workflow_dispatch:         # Manual run only—won't run on a schedule
+  workflow_dispatch:
 
 jobs:
   test-wake:
     runs-on: ubuntu-latest
     steps:
-      - uses: gpenessot/streamlit-keep-alive@main
+      - uses: actions/setup-python@v5
         with:
-          app-urls: |
-            https://streamlit.app
-          timeout: '180'
+          python-version: '3.11'
+
+      - name: Install Playwright
+        run: |
+          pip install playwright
+          playwright install chromium --with-deps
+
+      - name: Wake Streamlit App
+        run: |
+          python - << 'EOF'
+          import sys
+          from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeout
+
+          url = "https://proghead231-tof-folium-map2-uaxqrm.streamlit.app/"
+          print(f"Opening {url} ...")
+
+          with sync_playwright() as p:
+              browser = p.chromium.launch(headless=True)
+              page = browser.new_page()
+              page.goto(url, wait_until="domcontentloaded", timeout=60000)
+              page.wait_for_timeout(5000)  # Let Streamlit's sleep iframe render
+
+              print(f"Loaded URL: {page.url} | Title: {page.title()}")
+
+              clicked = False
+              # Check main page and every iframe on the page
+              for frame in [page.main_frame] + page.frames:
+                  btn = frame.locator("button:has-text('get this app back up'), button:has-text('Wake up')")
+                  if btn.count() > 0 and btn.first.is_visible():
+                      print("Sleep screen detected! Clicking wake-up button...")
+                      btn.first.click()
+                      btn.first.wait_for(state="hidden", timeout=120000)
+                      print("App woke up successfully!")
+                      clicked = True
+                      break
+
+              if not clicked:
+                  print("No wake-up button found—app is either already awake or blocked.")
+
+              browser.close()
+          EOF
